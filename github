@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ ! $2 ]; then
+  echo "$ ./github.sh *repository_name* ./username.txt"
+  exit 0
+fi
+
+rootpath=~/Projects/c4q/assessments/$1;
+if [ ! -d ${rootpath} ]
+  then
+  mkdir $rootpath
+fi
+
+if [ ${2: -4} == ".txt" ]; then
+  IFS=$'\r\n' GLOBIGNORE='*' :; names=($(cat $2))
+  for i in "${!names[@]}"; do
+    if [ ! -d ${rootpath}/${names[$i]} ]; then
+      path="https://github.com/"${names[$i]}"/"$1".git"
+      git clone $path ${rootpath}/${names[$i]}
+    fi
+  done
+else
+  path="https://github.com/"$2"/"$1".git"
+  if [ ! -d ${rootpath}/$2} ]; then
+    git clone $path ${rootpath}/$2
+  else
+    echo "directory already exists for this user"
+  fi
+fi
+
+
