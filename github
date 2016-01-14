@@ -5,7 +5,7 @@ if [ ! $2 ]; then
   exit 0
 fi
 
-rootpath=~/Projects/c4q/assessments/$1;
+rootpath=~/Desktop/ac-repos/$1;
 if [ ! -d ${rootpath} ]
   then
   mkdir $rootpath
